@@ -39,7 +39,42 @@ plt.legend(loc='best')
 plt.title('Rolling Mean at Zone A')
 ```
 
-* Then we can plot then use some data analysis methods to plot the future predictions
+* We can further break down the parameters of the search results 
+
+```python
+us_wc_m4 = us_wc.loc[us_wc['InstanceType'] == 'm4.2xlarge']
+us_wc_m4
+```
+* From the results obtained we can find the sections of the data whether by days or hours
+
+```python
+us_wa_m4.set_index('Timestamp',inplace=True)
+
+for col in ['InstanceType', 'AvailabilityZone', 'ProductDescription']:
+    us_wa_m4 = us_wa_m4.drop(col, axis=1)
+
+us_wa_m4['SpotPrice'] = us_wa_m4['SpotPrice'].apply(pd.to_numeric)
+us_wa_day = us_wa_m4.resample('D').mean()
+us_wa_hour = us_wa_m4.resample('H').mean()
+
+us_wb_hour   
+```
+* Using dickey fuller we can also test the data if it is stationary
+
+Test Statistic                 | 0.454991
+--- | --- 
+p-value                        | 0.983439
+#Lags Used                     | 7.000000
+Number of Observations Used   | 82.000000
+Critical Value (1%)           | -3.512738
+Critical Value (5%)           | -2.897490
+Critical Value (10%)          | -2.585949
+dtype: float64
+* One of the things we can do is find the pcf and acf of the data
+
+![image](https://user-images.githubusercontent.com/64080171/176798505-5b597b55-6387-444e-be9f-141324c6fc1e.png)
+
+* Then we can plot then use some data analysis methods to plot the future predictions, this is using the ARIMA model
 
 ```python  
 model_fit.plot_predict(dynamic=False)
