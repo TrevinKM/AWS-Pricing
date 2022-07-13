@@ -16,6 +16,9 @@ def obtainVals(instancesList, product_descList, regionName):
         )
 ```
 ![image](https://user-images.githubusercontent.com/64080171/176796260-de479f16-ac8d-4043-a97f-cdd358341029.png)
+
+## Using Dataframes
+
 * Then we are able to analyse the instances in the data given using the dataframes
 ```python
 df.InstanceType.value_counts().plot(kind='bar')
@@ -24,12 +27,17 @@ plt.xlabel("InstanceType")
 plt.title("Instances in each type")
 ```
 ![image](https://user-images.githubusercontent.com/64080171/176796449-f2ad56d6-9da0-4e03-8c80-1673713dc912.png)
+
+## Normalising the results
+
 * Using `fillna` we are able to normalise the data
 ```python
 us_wa_hour.fillna(method='ffill',inplace=True)
 us_wb_hour.fillna(method='ffill',inplace=True)
 us_wb_hour.fillna(method='ffill',inplace=True)
 ```
+## Implementing library functions
+
 * Using the matplotlib functions we can represent the data too
 
 ```python
@@ -39,12 +47,16 @@ plt.legend(loc='best')
 plt.title('Rolling Mean at Zone A')
 ```
 
+## Extracting filtered information
+
 * We can further break down the parameters of the search results 
 
 ```python
 us_wc_m4 = us_wc.loc[us_wc['InstanceType'] == 'm4.2xlarge']
 us_wc_m4
 ```
+## Finding valuable infromation in teh results
+
 * From the results obtained we can find the sections of the data whether by days or hours
 
 ```python
@@ -59,6 +71,8 @@ us_wa_hour = us_wa_m4.resample('H').mean()
 
 us_wb_hour   
 ```
+## Applying statistical tests to the results
+
 * Using dickey fuller we can also test the data if it is stationary
 
 Test Statistic                 | 0.454991
@@ -70,9 +84,14 @@ Critical Value (1%)           | -3.512738
 Critical Value (5%)           | -2.897490
 Critical Value (10%)          | -2.585949
 dtype: float64
+
+## Finding correlation
+
 * One of the things we can do is find the pcf and acf of the data
 
 ![image](https://user-images.githubusercontent.com/64080171/176798505-5b597b55-6387-444e-be9f-141324c6fc1e.png)
+
+## Applying statistical models 
 
 * Then we can plot then use some data analysis methods to plot the future predictions, this is using the ARIMA model
 
